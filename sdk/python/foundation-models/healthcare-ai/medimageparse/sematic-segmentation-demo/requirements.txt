@@ -3,8 +3,8 @@ scikit-image
 pydicom
 nibabel
 SimpleITK
-Pillow
+Pillow>=10.0.1
 matplotlib
-opencv-python
+opencv-python>=4.8.1.78
 requests
 urllib3
