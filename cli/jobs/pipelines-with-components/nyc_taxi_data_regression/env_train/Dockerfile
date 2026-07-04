@@ -1,5 +1,8 @@
 FROM python:3.8.13
 
+# install OS security updates (fixes CVE-2025-27363 and other OS-level CVEs)
+RUN apt-get update && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Install pip dependencies
 RUN pip install 'matplotlib>=3.3,<3.4' \
                 'psutil>=5.8,<5.9' \
