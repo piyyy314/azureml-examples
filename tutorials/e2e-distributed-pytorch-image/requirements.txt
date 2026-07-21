@@ -1,7 +1,7 @@
 # for local testing (cpu)
 torchvision==0.11.3
-torch==2.13.0
-Pillow>=10.0.1
+torch==1.10.2
+Pillow>=12.3.0
 
 # for metrics reporting/plotting
 azureml-mlflow==1.40.0
