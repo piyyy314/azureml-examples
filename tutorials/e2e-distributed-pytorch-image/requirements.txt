@@ -1,11 +1,11 @@
 # for local testing (cpu)
 torchvision==0.11.3
-torch==1.10.2
+torch==2.13.0
 Pillow>=12.3.0
 
 # for metrics reporting/plotting
 azureml-mlflow==1.40.0
-mlflow==3.11.1
+mlflow==3.14.0
 matplotlib==3.5.1
 
 # to run the notebooks locally
