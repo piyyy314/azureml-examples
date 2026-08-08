@@ -47,7 +47,7 @@ jobs:
     - name: pip install notebook reqs
       run: pip install -r sdk/python/dev-requirements.txt
     - name: azure login
-      uses: azure/login@v1
+      uses: Azure/login@v3.0.1
       continue-on-error: true
       with:
         client-id: ${{ secrets.OIDC_AZURE_CLIENT_ID }}
