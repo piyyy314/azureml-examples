@@ -9,4 +9,16 @@ fsspec>=2023.6.0
 xgboost>=2.0.0
 lightgbm>=4.0.0
 # tracking
-mlflow>=2.14.0
+mlflow==3.11.1
+azureml-mlflow==1.55.0
+
+# visualization
+matplotlib==3.4.3
+Pillow>=12.3.0
+
+# python tools
+tqdm==4.62.2
+joblib==1.2.0
+jupyter==1.0.0
+ipykernel==6.4.1
+papermill==2.3.3
