@@ -47,6 +47,7 @@ jobs:
     - name: pip install notebook reqs
       run: pip install -r sdk/python/dev-requirements.txt
     - name: azure login
+      if: ${{ secrets.OIDC_AZURE_CLIENT_ID != '' && secrets.OIDC_AZURE_TENANT_ID != '' && secrets.OIDC_AZURE_SUBSCRIPTION_ID != '' }}
       uses: azure/login@v1
       continue-on-error: true
       with:
@@ -54,6 +55,7 @@ jobs:
         tenant-id: ${{ secrets.OIDC_AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.OIDC_AZURE_SUBSCRIPTION_ID }}
     - name: bootstrap infra resources
+      if: ${{ secrets.OIDC_AZURE_CLIENT_ID != '' && secrets.OIDC_AZURE_TENANT_ID != '' && secrets.OIDC_AZURE_SUBSCRIPTION_ID != '' }}
       run: |
           [[ -z "${RUN_BOOTSTRAP:-}" ]] && RUN_BOOTSTRAP='true'
           echo '${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}';
