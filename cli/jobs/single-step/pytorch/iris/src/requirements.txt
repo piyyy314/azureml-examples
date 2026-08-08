@@ -10,3 +10,4 @@ Pillow>=10.2.0
 # tracking
 mlflow>=2.14.0
 azureml-mlflow>=1.47.0
+cryptography>=50.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
