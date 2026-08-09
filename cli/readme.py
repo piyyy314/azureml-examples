@@ -641,7 +641,9 @@ def write_endpoint_workflow(endpoint):
     endpoint_type = (
         "online"
         if "endpoints/online/" in endpoint
-        else "batch" if "endpoints/batch/" in endpoint else "unknown"
+        else "batch"
+        if "endpoints/batch/" in endpoint
+        else "unknown"
     )
     endpoint_name = hyphenated[-28:].replace("-", "") + str(
         random.randrange(1000, 9999)
