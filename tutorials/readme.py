@@ -341,8 +341,15 @@ def write_readme(notebooks, pipeline_folder=None):
             )
 
         print("writing README.md...")
-        with open(readme_file, "w") as f:
-            f.write(prefix + notebook_table + suffix)
+        content = prefix + notebook_table + suffix
+        try:
+            with open(readme_file, "r") as f:
+                existing_content = f.read()
+        except IOError:
+            existing_content = ""
+        if content != existing_content:
+            with open(readme_file, "w") as f:
+                f.write(content)
         print("finished writing README.md")
 
 
@@ -374,13 +381,14 @@ def modify_notebooks(notebooks):
         with open(notebook, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        # update metadata
-        data["metadata"]["kernelspec"] = kernelspec
+        # only update and write if kernelspec actually changed
+        if data.get("metadata", {}).get("kernelspec") != kernelspec:
+            data["metadata"]["kernelspec"] = kernelspec
 
-        # write notebook
-        with open(notebook, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=1, ensure_ascii=False)
-            f.write("\n")
+            # write notebook
+            with open(notebook, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=1, ensure_ascii=False)
+                f.write("\n")
 
     print("finished modifying notebooks...")
 

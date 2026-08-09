@@ -63,6 +63,17 @@ GITHUB_CONCURRENCY_GROUP = (
 hours_between_runs = 12
 
 
+def write_if_changed(filepath, content):
+    try:
+        with open(filepath, "r") as f:
+            existing = f.read()
+    except IOError:
+        existing = ""
+    if content != existing:
+        with open(filepath, "w") as f:
+            f.write(content)
+
+
 # define functions
 def main(args):
     # get list of notebooks
@@ -203,12 +214,13 @@ def modify_notebooks(notebooks):
         with open(notebook, "r") as f:
             data = json.load(f)
 
-        # update metadata
-        data["metadata"]["kernelspec"] = kernelspec
+        # only update and write if kernelspec actually changed
+        if data.get("metadata", {}).get("kernelspec") != kernelspec:
+            data["metadata"]["kernelspec"] = kernelspec
 
-        # write notebook
-        with open(notebook, "w") as f:
-            json.dump(data, f, indent=1)
+            # write notebook
+            with open(notebook, "w") as f:
+                json.dump(data, f, indent=1)
 
 
 def write_readme(jobs, endpoints, resources, assets, scripts, schedules):
@@ -335,19 +347,28 @@ def write_readme(jobs, endpoints, resources, assets, scripts, schedules):
         schedules_table += row
 
     # write README.md
-    print("writing README.md...")
-    with open("README.md", "w") as f:
-        f.write(
-            prefix
-            + scripts_table
-            + jobs_table
-            + endpoints_table
-            + resources_table
-            + assets_table
-            + schedules_table
-            + suffix
-        )
-    print("Finished writing README.md...")
+    content = (
+        prefix
+        + scripts_table
+        + jobs_table
+        + endpoints_table
+        + resources_table
+        + assets_table
+        + schedules_table
+        + suffix
+    )
+    try:
+        with open("README.md", "r") as f:
+            existing_content = f.read()
+    except IOError:
+        existing_content = ""
+    if content != existing_content:
+        print("writing README.md...")
+        with open("README.md", "w") as f:
+            f.write(content)
+        print("Finished writing README.md...")
+    else:
+        print("README.md is already up to date.")
 
 
 def write_workflows(
@@ -515,11 +536,8 @@ jobs:
       continue-on-error: false\n"""
 
     # write workflow
-    with open(
-        f"..{os.sep}.github{os.sep}workflows{os.sep}cli-{job.replace(os.sep, '-').replace('/', '-')}.yml",
-        "w",
-    ) as f:
-        f.write(workflow_yaml)
+    filepath = f"..{os.sep}.github{os.sep}workflows{os.sep}cli-{job.replace(os.sep, '-').replace('/', '-')}.yml"
+    write_if_changed(filepath, workflow_yaml)
 
 
 def write_job_using_registry_components_workflow(job):
@@ -603,11 +621,8 @@ jobs:
       working-directory: cli/{posix_project_dir}\n"""
 
     # write workflow
-    with open(
-        f"..{os.sep}.github{os.sep}workflows{os.sep}cli-{job.replace(os.sep, '-').replace('/', '-')}-registry.yml",
-        "w",
-    ) as f:
-        f.write(workflow_yaml)
+    filepath = f"..{os.sep}.github{os.sep}workflows{os.sep}cli-{job.replace(os.sep, '-').replace('/', '-')}-registry.yml"
+    write_if_changed(filepath, workflow_yaml)
 
 
 def write_endpoint_workflow(endpoint):
@@ -626,9 +641,7 @@ def write_endpoint_workflow(endpoint):
     endpoint_type = (
         "online"
         if "endpoints/online/" in endpoint
-        else "batch"
-        if "endpoints/batch/" in endpoint
-        else "unknown"
+        else "batch" if "endpoints/batch/" in endpoint else "unknown"
     )
     endpoint_name = hyphenated[-28:].replace("-", "") + str(
         random.randrange(1000, 9999)
@@ -732,8 +745,8 @@ jobs:
     workflow_yaml += cleanup_yaml
 
     # write workflow
-    with open(f"../.github/workflows/cli-{hyphenated}.yml", "w") as f:
-        f.write(workflow_yaml)
+    filepath = f"../.github/workflows/cli-{hyphenated}.yml"
+    write_if_changed(filepath, workflow_yaml)
 
 
 def write_asset_workflow(asset):
@@ -806,10 +819,8 @@ jobs:
       working-directory: cli\n"""
 
     # write workflow
-    with open(
-        f"..{os.sep}.github{os.sep}workflows{os.sep}cli-{hyphenated}.yml", "w"
-    ) as f:
-        f.write(workflow_yaml)
+    filepath = f"..{os.sep}.github{os.sep}workflows{os.sep}cli-{hyphenated}.yml"
+    write_if_changed(filepath, workflow_yaml)
 
 
 def write_script_workflow(script):
@@ -881,8 +892,8 @@ jobs:
       working-directory: cli\n"""
 
     # write workflow
-    with open(f"../.github/workflows/cli-scripts-{hyphenated}.yml", "w") as f:
-        f.write(workflow_yaml)
+    filepath = f"../.github/workflows/cli-scripts-{hyphenated}.yml"
+    write_if_changed(filepath, workflow_yaml)
 
 
 def write_schedule_workflow(schedule):
@@ -961,8 +972,8 @@ jobs:
       working-directory: cli\n"""
 
     # write workflow
-    with open(f"../.github/workflows/cli-schedules-{hyphenated}.yml", "w") as f:
-        f.write(workflow_yaml)
+    filepath = f"../.github/workflows/cli-schedules-{hyphenated}.yml"
+    write_if_changed(filepath, workflow_yaml)
 
 
 def get_schedule_time(filename):
