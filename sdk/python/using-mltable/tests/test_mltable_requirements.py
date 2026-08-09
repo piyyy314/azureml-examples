@@ -185,9 +185,9 @@ def test_snyk_pin_has_justification_comment(requirements_lines, package):
         and REQUIREMENT_LINE_RE.match(line.strip()).group("name").lower() == package
     ]
     assert matching_lines, f"{package} not found in requirements file"
-    assert "pinned by Snyk to avoid a vulnerability" in matching_lines[0], (
-        f"Missing Snyk justification comment for {package}: {matching_lines[0]!r}"
-    )
+    assert (
+        "pinned by Snyk to avoid a vulnerability" in matching_lines[0]
+    ), f"Missing Snyk justification comment for {package}: {matching_lines[0]!r}"
 
 
 def test_azureml_dataprep_has_pandas_extra(requirements_lines):

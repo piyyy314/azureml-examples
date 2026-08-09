@@ -84,9 +84,9 @@ class TestMltableRequirementsFileStructure:
     def test_no_blank_lines(self):
         with open(REQUIREMENTS_PATH, "r", encoding="utf-8") as f:
             raw_lines = f.readlines()
-        assert all(line.strip() for line in raw_lines), (
-            "mltable-requirements.txt should not contain blank lines"
-        )
+        assert all(
+            line.strip() for line in raw_lines
+        ), "mltable-requirements.txt should not contain blank lines"
 
     def test_expected_package_count(self):
         # 2 direct dependencies + 8 Snyk-pinned transitive dependencies.
