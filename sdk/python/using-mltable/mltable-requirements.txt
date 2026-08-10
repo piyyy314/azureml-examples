@@ -1,2 +1,10 @@
-mltable==1.3.0
+mltable==1.5.0
 azureml-dataprep[pandas]==4.10.6
+urllib3>=2.7.0 # not directly required, pinned by Snyk to avoid a vulnerability
+pyjwt>=2.11.0 # not directly required, pinned by Snyk to avoid a vulnerability
+cryptography>=48.0.1 # not directly required, pinned by Snyk to avoid a vulnerability
+azure-core>=1.38.0 # not directly required, pinned by Snyk to avoid a vulnerability
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
+requests>=2.33.0 # not directly required, pinned by Snyk to avoid a vulnerability
+azure-identity>=1.16.1 # not directly required, pinned by Snyk to avoid a vulnerability
+idna>=3.15 # not directly required, pinned by Snyk to avoid a vulnerability
