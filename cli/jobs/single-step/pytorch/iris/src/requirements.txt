@@ -6,6 +6,7 @@ adlfs>=2021.8.1
 scikit-learn
 torch
 torchvision
+Pillow>=10.0.1
 
 # tracking
 mlflow
