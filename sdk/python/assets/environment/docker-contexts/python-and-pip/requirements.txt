@@ -11,11 +11,12 @@ xgboost==1.4.2
 lightgbm==3.2.1
 
 # tracking
-mlflow==1.20.2
+mlflow==3.11.1
 azureml-mlflow==1.34.0
 
 # visualization
 matplotlib==3.4.3
+Pillow>=12.3.0
 
 # python tools
 tqdm==4.62.2
@@ -23,3 +24,6 @@ joblib==1.2.0
 jupyter==1.0.0
 ipykernel==6.4.1
 papermill==2.3.3
+aiohttp>=3.14.3 # not directly required, pinned by Snyk to avoid a vulnerability
+cryptography>=50.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=1.26.18 # not directly required, pinned by Snyk to avoid a vulnerability
