@@ -1,4 +1,7 @@
-FROM python:3.8.13
+FROM python:3.15-rc-slim-trixie
+
+# install OS security updates (fixes CVE-2025-27363 and other OS-level CVEs)
+RUN apt-get update && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install pip dependencies
 RUN pip install 'matplotlib>=3.3,<3.4' \
