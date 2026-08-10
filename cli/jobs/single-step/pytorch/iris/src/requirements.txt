@@ -1,12 +1,12 @@
 # data science
-numpy
-scipy
-pandas>=1.2.0
-adlfs>=2021.8.1
-scikit-learn
-torch
-torchvision
-
+numpy>=1.26.0
+scipy>=1.11.0
+pandas>=2.0.0
+adlfs>=2023.1.0
+scikit-learn>=1.4.0
+torch>=2.0.0
+torchvision>=0.15.0
+Pillow>=10.2.0
 # tracking
-mlflow
-azureml-mlflow
+mlflow>=2.14.0
+azureml-mlflow>=1.47.0

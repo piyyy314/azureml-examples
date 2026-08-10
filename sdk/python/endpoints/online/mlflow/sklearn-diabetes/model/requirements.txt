@@ -1,4 +1,4 @@
-mlflow
-cloudpickle==3.1.1
-psutil==5.9.4
-scikit-learn==1.6.1
+mlflow>=2.14.0
+cloudpickle>=3.1.1
+psutil>=5.9.8
+scikit-learn>=1.4.0
