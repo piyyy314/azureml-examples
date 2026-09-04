@@ -11,3 +11,4 @@ requests>=2.33.0 # not directly required, pinned by Snyk to avoid a vulnerabilit
 urllib3>=2.7.0 # not directly required, pinned by Snyk to avoid a vulnerability
 werkzeug>=3.1.6 # not directly required, pinned by Snyk to avoid a vulnerability
 zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
+sqlparse>=0.6.0 # not directly required, pinned by Snyk to avoid a vulnerability
