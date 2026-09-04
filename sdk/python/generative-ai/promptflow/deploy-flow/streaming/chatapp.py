@@ -62,8 +62,9 @@ def score(url, api_key, body, stream=True, on_event=None):
     logger.debug("POST %s", url)
     for name, value in headers.items():
         if name == "Authorization":
-            value = "[REDACTED]"
-        logger.debug(f">>> {name}: {value}")
+            logger.debug(">>> %s: [REDACTED]", name)
+            continue
+        logger.debug(">>> %s: [REDACTED]", name)
     logger.debug(json.dumps(body, indent=4, ensure_ascii=False))
     logger.debug("")
 

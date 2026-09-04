@@ -32,6 +32,7 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     env:
       RUN_BOOTSTRAP: ${{ github.event.inputs.bootstrap }}
@@ -47,6 +48,7 @@ jobs:
       run: pip install -r sdk/python/dev-requirements.txt
     - name: azure login
       uses: azure/login@v1
+      continue-on-error: true
       with:
         client-id: ${{ secrets.OIDC_AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_AZURE_TENANT_ID }}

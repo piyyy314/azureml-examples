@@ -30,6 +30,7 @@ jobs:
       run: pip install -r sdk/python/dev-requirements.txt
     - name: azure login
       uses: azure/login@v1
+      continue-on-error: true
       with:
         client-id: ${{ secrets.OIDC_AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.OIDC_AZURE_TENANT_ID }}
@@ -214,6 +215,7 @@ jobs:
         curl -L https://aka.ms/downloadazcopy-v10-linux | tar -zxf - --directory /home/azcopy/
         sudo mv $(find /home/azcopy/ -type f -name azcopy) /usr/bin/
     - name: azcopy sync
+      continue-on-error: true
       env:
         AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       run: |
@@ -228,4 +230,3 @@ jobs:
         # bash "$SCRIPT_DIR"/sdk_helpers.sh install_azcopy
         bash "$SCRIPT_DIR"/sdk_helpers.sh copy_dataset
       working-directory: infra/bootstrapping
-      continue-on-error: true
